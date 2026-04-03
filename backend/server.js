@@ -5,24 +5,25 @@ require("dotenv").config();
 
 const app = express();
 
-// ✅ CORS FIX (IMPORTANT)
+// ✅ CORS FIX
 app.use(cors({
-  origin: "*",
+  origin: [
+    "http://localhost:3000",
+    "https://social-app-sage-six.vercel.app"
+  ],
   methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
 }));
+
+app.options("*", cors());
 
 app.use(express.json());
 
-// Routes
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/posts", require("./routes/posts"));
 
-// DB connection
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
 
-// Server
-app.listen(5000, () => {
-  console.log("Server running");
-});
+app.listen(5000, () => console.log("Server running"));
