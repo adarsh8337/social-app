@@ -5,14 +5,24 @@ require("dotenv").config();
 
 const app = express();
 
-app.use(cors());
+// ✅ CORS FIX (IMPORTANT)
+app.use(cors({
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+}));
+
 app.use(express.json());
 
+// Routes
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/posts", require("./routes/posts"));
 
+// DB connection
 mongoose.connect(process.env.MONGO_URI)
-.then(()=>console.log("DB Connected"))
-.catch(err=>console.log(err));
+  .then(() => console.log("MongoDB Connected"))
+  .catch(err => console.log(err));
 
-app.listen(5000, ()=>console.log("Server running"));
+// Server
+app.listen(5000, () => {
+  console.log("Server running");
+});
