@@ -11,7 +11,7 @@ function Feed() {
   const user = JSON.parse(localStorage.getItem("user"));
 
   const fetchPosts = async () => {
-    const res = await axios.get("http://localhost:5000/api/posts/feed");
+    const res = await axios.get("https://social-app-backend.onrender.com/api/posts/feed");
     setPosts(res.data);
   };
 
@@ -22,7 +22,7 @@ function Feed() {
   const createPost = async () => {
     if (!text && !image) return alert("Add something");
 
-    await axios.post("http://localhost:5000/api/posts/create", {
+    await axios.post("https://social-app-backend.onrender.com/api/posts/create", {
       username: user.username,
       text,
       image
@@ -34,14 +34,14 @@ function Feed() {
   };
 
   const likePost = async (id) => {
-    await axios.put(`http://localhost:5000/api/posts/like/${id}`, {
+    await axios.put(`https://social-app-xaua.onrender.com/api/posts/like/${id}`, {
       username: user.username
     });
     fetchPosts();
   };
 
   const addComment = async (id) => {
-    await axios.put(`http://localhost:5000/api/posts/comment/${id}`, {
+    await axios.put(`https://social-app-xaua.onrender.com/api/posts/comment/${id}`, {
       username: user.username,
       comment: comment[id]
     });
