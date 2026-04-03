@@ -6,7 +6,7 @@ function Signup() {
 
   const signup = async () => {
     try {
-      await axios.post("http://localhost:5000/api/auth/signup", data);
+      await axios.post("https://social-app-xaua.onrender.com/api/auth/signup", data);
       alert("Signup successful");
       window.location = "/";
     } catch (err) {
